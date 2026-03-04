@@ -25,10 +25,10 @@ def test_train_history_values_are_lists():
 @pytest.mark.integration
 def test_train_history_rates_sum_to_one():
     history = train(episodes=1_000)
-    for i, (w, d, l) in enumerate(
+    for i, (w, d, lr) in enumerate(
         zip(history["win"], history["draw"], history["loss"])
     ):
-        total = w + d + l
+        total = w + d + lr
         assert total == pytest.approx(1.0, abs=1e-9), (
             f"checkpoint {i}: win+draw+loss={total} != 1.0"
         )
