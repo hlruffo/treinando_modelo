@@ -84,16 +84,16 @@ def test_anti_diagonal():
 
 
 def test_draw():
-    '''
-        Sequência que produz empate:
-        X O X / O X X / O X O
-        Posições: X=0,2,4,5,7  O=1,3,6,8
-    '''
+    """
+    Sequência que produz empate:
+    X O X / O X X / O X O
+    Posições: X=0,2,4,5,7  O=1,3,6,8
+    """
     env = make_env()
     move_sequence = [0, 1, 2, 3, 4, 6, 5, 8, 7]
-    done = False 
+    done = False
     for action in move_sequence:
         state, reward, done, info = env.step(action)
     assert done
     assert reward == 0.0
-    assert info['winner'] is None
+    assert info["winner"] is None

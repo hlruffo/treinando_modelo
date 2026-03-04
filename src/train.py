@@ -16,10 +16,13 @@ def train(episodes: int = 50_000) -> dict:
     history: dict[str, list] = {"rewards_x": [], "win": [], "draw": [], "loss": []}
     log_rewards: list[float] = []
     log_results: list[str] = []
-    
+
     for ep in range(1, episodes + 1):
         state = env.reset()
-        last_sa: dict[int, tuple | None] = {1: None, -1: None} # Última experiência (state, action) de cada jogador — atualização diferida
+        last_sa: dict[int, tuple | None] = {
+            1: None,
+            -1: None,
+        }  # Última experiência (state, action) de cada jogador — atualização diferida
         reward_x = 0.0
         result = "draw"
         done = False
@@ -30,7 +33,7 @@ def train(episodes: int = 50_000) -> dict:
             avail = env.available_actions()
             action = agent.choose_action(state, avail)
             next_state, _, done, info = env.step(action)
-            
+
             if done:
                 winner = info["winner"]
                 if winner is not None:
@@ -62,14 +65,14 @@ def train(episodes: int = 50_000) -> dict:
                 last_sa[player] = (state, action)
 
             state = next_state
-            
+
         log_rewards.append(reward_x)
         log_results.append(result)
-        
+
         if ep % 50_000 == 0:
             agents[1].decay_epsilon()
             agents[-1].decay_epsilon()
-            
+
         if ep % 1_000 == 0:
             recent_r = log_rewards[-1_000:]
             recent_res = log_results[-1_000:]
@@ -90,4 +93,4 @@ def train(episodes: int = 50_000) -> dict:
     os.makedirs("models", exist_ok=True)
     agents[1].save("models/agent_x.pkl")
     print("\nAgente X salvo em models/agent_x.pkl")
-    return history     
+    return history

@@ -49,7 +49,9 @@ def test_choose_action_greedy_picks_max_q():
 
 def test_update_terminal_state():
     agent = make_agent(alpha=1.0, gamma=0.9)
-    agent.update(STATE_A, 0, reward=1.0, next_state=STATE_B, next_available=[], done=True)
+    agent.update(
+        STATE_A, 0, reward=1.0, next_state=STATE_B, next_available=[], done=True
+    )
     # com alpha=1 e done=True: Q = 0 + 1*(1.0 - 0) = 1.0
     assert agent.q[(STATE_A, 0)] == pytest.approx(1.0)
 
@@ -57,16 +59,22 @@ def test_update_terminal_state():
 def test_update_non_terminal_state():
     agent = make_agent(alpha=1.0, gamma=0.9)
     agent.q[(STATE_B, 1)] = 2.0  # max next Q
-    agent.update(STATE_A, 0, reward=0.0, next_state=STATE_B, next_available=[1], done=False)
+    agent.update(
+        STATE_A, 0, reward=0.0, next_state=STATE_B, next_available=[1], done=False
+    )
     # target = 0 + 0.9*2.0 = 1.8
     assert agent.q[(STATE_A, 0)] == pytest.approx(1.8)
 
 
 def test_update_accumulates_across_calls():
     agent = make_agent(alpha=0.5, gamma=0.9)
-    agent.update(STATE_A, 0, reward=1.0, next_state=STATE_B, next_available=[], done=True)
+    agent.update(
+        STATE_A, 0, reward=1.0, next_state=STATE_B, next_available=[], done=True
+    )
     first = agent.q[(STATE_A, 0)]
-    agent.update(STATE_A, 0, reward=1.0, next_state=STATE_B, next_available=[], done=True)
+    agent.update(
+        STATE_A, 0, reward=1.0, next_state=STATE_B, next_available=[], done=True
+    )
     second = agent.q[(STATE_A, 0)]
     # segunda atualização deve aproximar mais de 1.0
     assert second > first

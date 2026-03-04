@@ -3,9 +3,14 @@ from __future__ import annotations
 
 class TicTacToeEnv:
     WIN_COMBINATIONS = [
-        (0, 1, 2), (3, 4, 5), (6, 7, 8),  # linhas
-        (0, 3, 6), (1, 4, 7), (2, 5, 8),  # colunas
-        (0, 4, 8), (2, 4, 6)  # diagonal
+        (0, 1, 2),
+        (3, 4, 5),
+        (6, 7, 8),  # linhas
+        (0, 3, 6),
+        (1, 4, 7),
+        (2, 5, 8),  # colunas
+        (0, 4, 8),
+        (2, 4, 6),  # diagonal
     ]
 
     def __init__(self) -> None:
@@ -22,20 +27,19 @@ class TicTacToeEnv:
 
     def step(self, action: int) -> tuple[tuple[int, ...], float, bool, dict]:
         if self.board[action] != 0:
-            raise ValueError(
-                f'Ação inválida: posição {action} já está ocupada')
+            raise ValueError(f"Ação inválida: posição {action} já está ocupada")
 
         self.board[action] = self.current_player
         winner = self._check_winner()
 
         if winner is not None:
-            return tuple(self.board), 1.0, True, {'winner': winner}
+            return tuple(self.board), 1.0, True, {"winner": winner}
 
         if not self.available_actions():
-            return tuple(self.board), 0.0, True, {'winner': None}
+            return tuple(self.board), 0.0, True, {"winner": None}
 
         self.current_player *= -1
-        return tuple(self.board), 0.0, False, {'winner': None}
+        return tuple(self.board), 0.0, False, {"winner": None}
 
     def _check_winner(self) -> int | None:
         for a, b, c in self.WIN_COMBINATIONS:
@@ -49,8 +53,7 @@ class TicTacToeEnv:
         return None
 
     def render(self):
-        symbols = {0: '.', 1: 'X', -1: 'O'}
+        symbols = {0: ".", 1: "X", -1: "O"}
         for row in range(3):
-            print(''.join(symbols[self.board[row * 3 + col]]
-                for col in range(3)))
+            print("".join(symbols[self.board[row * 3 + col]] for col in range(3)))
         print()
