@@ -46,3 +46,5 @@ Exemplos dos commits anteriores:
 - `fix: correct log_results bug in train loop`
 - `docs: add train.md documenting periodic triggers`
 - `chore: add pytest config and GitHub workflows`
+
+Separe os commits por implemetação. Exemplo: se uma feature e um teste são implementados deve haver 1 commit para feature e 1 commit para o teste.

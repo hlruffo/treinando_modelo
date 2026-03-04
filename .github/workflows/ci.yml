@@ -44,4 +44,3 @@ jobs:
 
       - name: Run integration tests
         run: pytest tests/ -v -m "integration" --ignore-glob="**/venv/**"
-        continue-on-error: true  # sem testes de integração ainda
