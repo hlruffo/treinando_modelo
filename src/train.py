@@ -8,7 +8,7 @@ from src.environment import TicTacToeEnv
 
 def train(episodes: int = 50_000) -> dict:
     env = TicTacToeEnv()
-    agents = dict[int, QLearningAgent] = {
+    agents: dict[int, QLearningAgent] = {
         1: QLearningAgent(),
         -1: QLearningAgent(),
     }
@@ -22,7 +22,8 @@ def train(episodes: int = 50_000) -> dict:
         last_sa: dict[int, tuple | None] = {1: None, -1: None} # Última experiência (state, action) de cada jogador — atualização diferida
         reward_x = 0.0
         result = "draw"
-        
+        done = False
+
         while not done:
             player = env.current_player
             agent = agents[player]

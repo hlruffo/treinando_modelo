@@ -1,4 +1,4 @@
-from __future__ import annotarions
+from __future__ import annotations
 
 
 class TicTacToeEnv:
