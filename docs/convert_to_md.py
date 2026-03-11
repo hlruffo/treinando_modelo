@@ -78,7 +78,8 @@ def main():
         help="Arquivo (.pdf/.doc/.docx) ou diretório com documentos.",
     )
     parser.add_argument(
-        "-o", "--output",
+        "-o",
+        "--output",
         help=(
             "Arquivo .md de saída (para entrada única) ou diretório de saída "
             "(para entrada de diretório). Padrão: mesmo local e nome do arquivo original."
